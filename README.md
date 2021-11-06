@@ -22,49 +22,49 @@
 requirements:
 
 
-python3, and the following moduels, cloudscraper, random, sys, webbrowser, and scapy.
+    python3, and the following moduels, cloudscraper, random, sys, webbrowser, and scapy.
 
 
 
 Usage:
 
 
-sudo python3 DDoS.py URL/IP/WIFINAME Networks-to-make (for ssid spam)
+    sudo python3 DDoS.py URL/IP/WIFINAME Networks-to-make (for ssid spam)
 
 
 
 Ex:
 
 
-sudo python3 DDoS.py https://www.target.com 1
+    sudo python3 DDoS.py https://www.target.com 1
 
-sudo python3 DDoS.py 1.1.1.1 4
+    sudo python3 DDoS.py 1.1.1.1 4
 
-sudo python3 DDoS.py wifiname 9 100
+    sudo python3 DDoS.py wifiname 9 100
 
 
 
 Methods:
 
 
-Nginx (experimental), uses keep alive and agent user spoof to bypass nginx. (may not work)
+    Nginx (experimental), uses keep alive and agent user spoof to bypass nginx. (may not work)
  
-Cloudfare, uses cloudscraper to send packets to cloudfare protected websites.
+    Cloudfare, uses cloudscraper to send packets to cloudfare protected websites.
  
-GET, kinda fast, could stop a normal website really fast.
+    GET, kinda fast, could stop a normal website really fast.
  
-TCP, uses syn attack, kinda powerfull. 
+    TCP, uses syn attack, kinda powerfull. 
  
-NTP, sends packets to a website/ip using there own server (a ntp packet).
+    NTP, sends packets to a website/ip using there own server (a ntp packet).
  
-UDP, sends UDP packets, really fast, kinda laggy. 
+    UDP, sends UDP packets, really fast, kinda laggy. 
  
-DNS (memcached packet), sends packets to a website/ip using there own server, it shows as dns but has memcached payload in it. 
+    DNS (memcached packet), sends packets to a website/ip using there own server, it shows as dns but has memcached payload in it. 
  
-ICMP, just your good old ping of death.
+    ICMP, just your good old ping of death.
  
-OVH/NFO bypass, same as TCP, has a payload in it, could be more effective sometimes. 
+    OVH/NFO bypass, same as TCP, has a payload in it, could be more effective sometimes. 
  
-SSID spam, spams ssid names, could crash anything that scans for wifi networks if enough are made. Does NOT need a usb plugin thing (unlike most ssid spammers).
+    SSID spam, spams ssid names, could crash anything that scans for wifi networks if enough are made. Does NOT need a usb plugin thing (unlike most ssid spammers).
  
-Website checker, checks if a website is online.
+    Website checker, checks if a website is online.
