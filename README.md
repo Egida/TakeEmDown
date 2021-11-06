@@ -48,23 +48,33 @@ Methods:
 
 
     Nginx (experimental), uses keep alive and agent user spoof to bypass nginx. (may not work)
- 
+______________________________________________________________________
+    
     Cloudfare, uses cloudscraper to send packets to cloudfare protected websites.
+______________________________________________________________________
  
     GET, kinda fast, could stop a normal website really fast.
+______________________________________________________________________
  
     TCP, uses syn attack, kinda powerfull. 
+______________________________________________________________________
  
     NTP, sends packets to a website/ip using there own server (a ntp packet).
- 
+______________________________________________________________________
+
     UDP, sends UDP packets, really fast, kinda laggy. 
- 
+______________________________________________________________________
+    
     DNS (memcached packet), sends packets to a website/ip using there own server, it shows as dns but has memcached payload in it. 
+______________________________________________________________________ 
  
     ICMP, just your good old ping of death.
+______________________________________________________________________
  
     OVH/NFO bypass, same as TCP, has a payload in it, could be more effective sometimes. 
- 
+______________________________________________________________________
+
     SSID spam, spams ssid names, could crash anything that scans for wifi networks if enough are made. Does NOT need a usb plugin thing (unlike most ssid spammers).
- 
+______________________________________________________________________
+    
     Website checker, checks if a website is online.
