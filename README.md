@@ -1,5 +1,11 @@
 # TakeEmDown
 
+v2:
+
+Don't know how to explain this but use "sudo python3 DDoS.py -h" for new info on how to use
+
+v1:
+ 
 Has basic methods, like TCP, UDP, and GET.
 
 Has less known methods, like NGINX bypass, CLOUDFARE bypass, and TCP ABUSE.
