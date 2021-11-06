@@ -1,5 +1,9 @@
 # Knock Em
  
+V4:
+ 
+New methods, and made everything look nicer.
+
 v3:
  
 Added ICMP, DNS, MEMCACHED, and NTP. Also removed TCP abuse till I find out how to fix it.
