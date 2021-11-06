@@ -1,5 +1,9 @@
 # Knock Em
  
+v5:
+ 
+Fixed get method, and minor changes. 
+ 
 V4:
  
 New methods, and made everything look nicer.
