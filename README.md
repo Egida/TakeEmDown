@@ -1,5 +1,9 @@
 # TakeEmDown
-
+ 
+v3:
+ 
+Added ICMP, DNS, MEMCACHED, and NTP. Also removed TCP abuse till I find out how to fix it.
+ 
 v2:
 
 Don't know how to explain this but use "sudo python3 DDoS.py -h" for new info on how to use
