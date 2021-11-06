@@ -5,6 +5,7 @@ import time
 import random
 import os
 import socket
+import sys
 from scapy.all import *
 from requests.structures import CaseInsensitiveDict
 from time import sleep
@@ -32,16 +33,25 @@ user_agent_list = [
 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; acc=baadshah; acc=none; freenet DSL 1.1; (none))',
 'Mozilla/4.0 (compatible; MSIE 5.5; Windows 98)'
 ]
-website = input("Website or IP: ")
-url = website
-fff = input("""
+website = str(sys.argv[1])
+if website == "-h":
+	print("""Usage:
+_______________________________________________
+sudo python3 DDoS.py https://www.target.com 1
+_______________________________________________
+sudo python3 DDoS.py 1.1.1.1 4
+_______________________________________________
+methods: 
+
 1.Nginx
 2.Cloudfare
 3.GET
 4.TCP
 5.TCP ABUSE
-6.UDP
-==> """)
+6.UDP""")
+	exit()
+url = website
+fff = str(sys.argv[2])
 if int(fff) == 1:
 	while True:
 		print("""
