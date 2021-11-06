@@ -1,14 +1,23 @@
 # Knock Em 2.0
 
+
+
 requirements:
- 
+
+
 python3, and the following moduels, cloudscraper, random, sys, webbrowser, and scapy.
- 
+
+
+
 Usage:
+
 
 sudo python3 DDoS.py URL/IP/WIFINAME Networks-to-make (for ssid spam)
 
+
+
 Ex:
+
 
 sudo python3 DDoS.py https://www.target.com 1
 
@@ -16,8 +25,11 @@ sudo python3 DDoS.py 1.1.1.1 4
 
 sudo python3 DDoS.py wifiname 9 100
 
+
+
 Methods:
- 
+
+
 Nginx (experimental), uses keep alive and agent user spoof to bypass nginx. (may not work)
  
 Cloudfare, uses cloudscraper to send packets to cloudfare protected websites.
